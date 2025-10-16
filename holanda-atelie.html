@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Holanda Ateliê — Moda feminina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --pink:#ff6fa3;
+      --dark:#1f1f23;
+      --muted:#666;
+      --card:#fff7fb;
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:#fff; color:var(--dark); line-height:1.45}
+    header{background:linear-gradient(90deg,var(--pink),#ff8fb9);padding:20px 24px;color:white}
+    .container{max-width:1100px;margin:0 auto;padding:0 18px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display';font-size:20px}
+    h1.site-title{margin:0;font-family:'Playfair Display';font-size:20px}
+    nav{margin-left:auto}
+    nav a{color:white;text-decoration:none;margin-left:18px;font-weight:600}
+
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:center;padding:48px 0}
+    .hero h2{font-family:'Playfair Display';font-size:36px;margin:0 0 10px}
+    .hero p{margin:0 0 18px;color:rgba(255,255,255,0.95)}
+    .cta{background:var(--dark);color:white;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:700}
+
+    .card-hero{background:rgba(255,255,255,0.12);padding:18px;border-radius:12px;color:white}
+    .price-badge{display:inline-block;background:rgba(0,0,0,0.12);padding:6px 10px;border-radius:999px;font-weight:700}
+
+    /* products */
+    section.products{padding:36px 0}
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+    .product{background:white;border-radius:12px;padding:10px;box-shadow:0 6px 18px rgba(31,31,35,0.06);overflow:hidden}
+    .product img{width:100%;height:260px;object-fit:cover;border-radius:10px}
+    .product .title{font-weight:700;margin:10px 0 6px}
+    .product .desc{color:var(--muted);font-size:14px;margin:0 0 10px}
+    .product .price{font-weight:800;color:var(--dark)}
+    .row{display:flex;gap:8px;align-items:center}
+    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer}
+    .btn-primary{background:var(--pink);color:white;font-weight:700}
+    .btn-outline{background:transparent;border:1px solid #eee}
+
+    /* filter bar */
+    .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+    .search{flex:1;min-width:180px}
+    input[type="text"], select{width:100%;padding:10px;border-radius:10px;border:1px solid #eee}
+
+    footer{padding:28px 0;border-top:1px solid #f0f0f0;margin-top:24px}
+
+    /* responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .hero img{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" style="display:flex;align-items:center;gap:16px">
+      <div class="brand">
+        <div class="logo">HA</div>
+        <div>
+          <h1 class="site-title">Holanda Ateliê</h1>
+          <div style="font-size:12px;opacity:0.95">Modinha feminina • Vestidos a partir de R$ 120,00</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#colecao">Coleção</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h2>Vestidos que abraçam seu estilo</h2>
+        <p style="color:rgba(0,0,0,0.7)">Peças selecionadas de modinha — conforto, tendência e precinho justo. Explore nossa coleção e encontre o vestido perfeito: a partir de R$ 120,00.</p>
+        <a class="cta" href="#colecao">Ver Coleção</a>
+      </div>
+      <div class="card-hero">
+        <div class="price-badge">A partir de R$ 120,00</div>
+        <p style="margin-top:12px">Promoção da semana: frete fixo e desconto progressivo para compras acima de 3 peças.</p>
+      </div>
+    </section>
+
+    <section id="colecao" class="products">
+      <div class="toolbar">
+        <div class="search" style="max-width:420px"><input id="q" type="text" placeholder="Buscar por modelo, cor..." oninput="filterProducts()"></div>
+        <div style="width:160px"><select id="sort" onchange="sortProducts()"><option value="default">Ordenar: Destaques</option><option value="price-asc">Preço: Crescente</option><option value="price-desc">Preço: Decrescente</option></select></div>
+        <div><button class="btn btn-outline" onclick="resetFilters()">Limpar</button></div>
+      </div>
+
+      <div id="grid" class="products-grid">
+        <!-- product cards generated by JS -->
+      </div>
+    </section>
+
+    <section id="sobre" style="padding:28px 0">
+      <h3>Sobre a Holanda Ateliê</h3>
+      <p style="max-width:760px;color:var(--muted)">A Holanda Ateliê é uma marca de modinha jovem que traz vestidos versáteis, com modelagens pensadas para o dia a dia e ocasiões especiais. Priorizamos qualidade, preço acessível (com vestidos a partir de R$ 120,00) e atendimento próximo — inspirado nas tendências mas com personalidade própria.</p>
+    </section>
+
+    <section id="contato" style="padding:18px 0">
+      <h3>Fale conosco</h3>
+      <form onsubmit="event.preventDefault();alert('Mensagem enviada! (simulada)')" style="max-width:640px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <input required placeholder="Seu nome">
+          <input required type="email" placeholder="seu@exemplo.com">
+        </div>
+        <textarea required placeholder="Mensagem" style="width:100%;margin-top:10px;padding:10px;border-radius:8px;border:1px solid #eee"></textarea>
+        <div style="margin-top:10px"><button class="btn btn-primary">Enviar</button></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+      <div>
+        <strong>Holanda Ateliê</strong><br>
+        <small style="color:var(--muted)">Direitos reservados © <span id="year"></span></small>
+      </div>
+      <div style="color:var(--muted)">Siga: Instagram • WhatsApp</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    const products = [
+      {id:1,name:'Vestido Floral Midi',desc:'Manga curta, tecido leve',price:129.90,img:'https://images.unsplash.com/photo-1520975683742-3b8b2f6b2b9f?auto=format&fit=crop&w=800&q=60'},
+      {id:2,name:'Vestido Envelope',desc:'Cintura ajustável, elegante',price:149.00,img:'https://images.unsplash.com/photo-1503342452485-86d9b2e6b5bb?auto=format&fit=crop&w=800&q=60'},
+      {id:3,name:'Vestido Curto Liso',desc:'Perfeito para festas',price:120.00,img:'https://images.unsplash.com/photo-1520975917626-0898d0b0f6f2?auto=format&fit=crop&w=800&q=60'},
+      {id:4,name:'Vestido Boho Longo',desc:'Estampa exclusiva',price:179.90,img:'https://images.unsplash.com/photo-1520975698513-9e2f6d3a3dcb?auto=format&fit=crop&w=800&q=60'},
+      {id:5,name:'Vestido Tubinho',desc:'Modelagem ajustada',price:130.00,img:'https://images.unsplash.com/photo-1495106245174-078c3f6b6b64?auto=format&fit=crop&w=800&q=60'},
+      {id:6,name:'Vestido Camadas',desc:'Romântico e leve',price:160.00,img:'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=60'}
+    ];
+
+    let filtered = [...products];
+
+    function render(){
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      filtered.forEach(p=>{
+        const div = document.createElement('div'); div.className='product';
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <div class="title">${p.name}</div>
+          <div class="desc">${p.desc}</div>
+          <div class="row" style="justify-content:space-between;align-items:center">
+            <div class="price">R$ ${p.price.toFixed(2).replace('.',',')}</div>
+            <div>
+              <button class="btn btn-outline" onclick="viewProduct(${p.id})">Ver</button>
+              <button class="btn btn-primary" onclick="addCart(${p.id})">Comprar</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(div);
+      })
+    }
+
+    function filterProducts(){
+      const q = document.getElementById('q').value.toLowerCase();
+      filtered = products.filter(p=> (p.name+p.desc).toLowerCase().includes(q));
+      sortProducts();
+    }
+
+    function sortProducts(){
+      const s = document.getElementById('sort').value;
+      if(s==='price-asc') filtered.sort((a,b)=>a.price-b.price);
+      else if(s==='price-desc') filtered.sort((a,b)=>b.price-a.price);
+      else filtered = filtered.sort((a,b)=>a.id-b.id);
+      render();
+    }
+
+    function resetFilters(){document.getElementById('q').value='';document.getElementById('sort').value='default';filtered=[...products];render();}
+
+    function viewProduct(id){const p = products.find(x=>x.id===id);alert(p.name + '\n\n' + p.desc + '\nValor: R$ ' + p.price.toFixed(2).replace('.',','));}
+
+    function addCart(id){
+      // carrinho simples (localStorage)
+      const cart = JSON.parse(localStorage.getItem('ha_cart')||'[]');
+      cart.push(id);
+      localStorage.setItem('ha_cart',JSON.stringify(cart));
+      alert('Adicionado ao carrinho — total de itens: ' + cart.length);
+    }
+
+    // inicializa
+    render();
+  </script>
+</body>
+</html>
